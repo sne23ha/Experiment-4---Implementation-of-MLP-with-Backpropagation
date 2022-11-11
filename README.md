@@ -120,8 +120,8 @@ Normalize our dataset.
 ## PROGRAM 
 
 ```
-Developed by : v.Monisree
-Registration number : 212219220033
+Developed by : Sneha m
+Registration number : 212219220048
 import pandas as pd
 import sklearn
 from sklearn import preprocessing
