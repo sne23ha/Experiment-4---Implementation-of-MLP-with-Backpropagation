@@ -119,6 +119,71 @@ Normalize our dataset.
 
 ## PROGRAM 
 
+```
+Developed by : v.Monisree
+Registration number : 212219220033
+import pandas as pd
+import sklearn
+from sklearn import preprocessing
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+from sklearn.neural_network import MLPClassifier
+from sklearn.metrics import classification_report, confusion_matrix
+
+url = 'https://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data'
+names = ['sepal-length', 'sepal-width', 'petal-length', 'petal-width', 'Class']
+
+irisdata = pd.read_csv(url, names=names)
+
+# Takes first 4 columns and assign them to variable "X"
+X = irisdata.iloc[:, 0:4]
+
+# Takes first 5th columns and assign them to variable "Y". Object dtype refers to strings.
+y = irisdata.select_dtypes(include=[object])  
+
+X.head()
+
+y.head()
+
+# y actually contains all categories or classes:
+y.Class.unique()
+
+# Now transforming categorial into numerical values
+le = preprocessing.LabelEncoder()
+y = y.apply(le.fit_transform)
+y.head()
+
+# Now for train and test split (80% of  dataset into  training set and  other 20% into test data)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.20)  
+
+# Feature scaling
+scaler = StandardScaler()  
+scaler.fit(X_train)
+
+X_train = scaler.transform(X_train)  
+X_test = scaler.transform(X_test)
+
+mlp = MLPClassifier(hidden_layer_sizes=(10, 10, 10), max_iter=1000)  
+mlp.fit(X_train, y_train.values.ravel())  
+predictions = mlp.predict(X_test) 
+
+print(predictions)
+
+# Last thing: evaluation of algorithm performance in classifying flowers
+print(confusion_matrix(y_test,predictions))
+
+print(classification_report(y_test,predictions))
+```
+
 ## OUTPUT 
 
+![image](https://user-images.githubusercontent.com/96875495/201331833-a9b0b15a-dd1d-4b2b-a2cd-1cb26eba89d8.png)
+
+![image](https://user-images.githubusercontent.com/96875495/201331876-8a8c33fc-e31e-420e-9de4-23716f1019e2.png)
+
+![image](https://user-images.githubusercontent.com/96875495/201331937-18f6955b-b69b-4ef2-ad9f-462286cc2873.png)
+
+
 ## RESULT
+
+Thus, to implement a Multilayer Perceptron for Multi classification is executed and verified.
